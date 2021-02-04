@@ -1,0 +1,43 @@
+const input = document.getElementById("input");
+const buttons = document.getElementsByClassName("button");
+
+let arr = [];
+
+const decimalWasHit = () => {
+  return arr.indexOf(".") != -1;
+};
+
+const buttonPressed = (button) => {
+  if (button == "AC") {
+    arr = [];
+    return;
+  }
+  if (button == "." && arr.length == 0 && !decimalWasHit()) {
+    arr.push("0");
+    arr.push(".");
+    return;
+  }
+  if (!isNaN(button)) {
+    arr.push(button);
+    return;
+  }
+  if (button == "." && arr.length != 0 && !decimalWasHit()) {
+    arr.push(".");
+    return;
+  }
+};
+
+const getDisplay = () => {
+  if (arr.length == 0) {
+    return "0";
+  }
+  return arr.join("");
+};
+
+const click = (event) => {
+  buttonPressed(event.target.textContent);
+  input.textContent = getDisplay();
+};
+
+const arrOfButtons = Array.prototype.slice.call(buttons);
+arrOfButtons.forEach((button) => (button.onclick = click));
