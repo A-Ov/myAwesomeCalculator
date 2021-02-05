@@ -1,37 +1,39 @@
 const input = document.getElementById("input");
 const buttons = document.getElementsByClassName("button");
 
-let arr = [];
+let one = "0";
+let two = "";
+let op = "+";
 
 const decimalWasHit = () => {
-  return arr.indexOf(".") != -1;
+  return one.indexOf(".") != -1;
 };
 
 const buttonPressed = (button) => {
   if (button == "AC") {
-    arr = [];
+    one = "0";
     return;
   }
-  if (button == "." && arr.length == 0 && !decimalWasHit()) {
-    arr.push("0");
-    arr.push(".");
+  if (button == "." && !decimalWasHit()) {
+    one = one.concat(".");
     return;
   }
   if (!isNaN(button)) {
-    arr.push(button);
+    if (one === "0") {
+      one = button
+      return;
+    } else { 
+      one = one.concat(button);
     return;
-  }
-  if (button == "." && arr.length != 0 && !decimalWasHit()) {
-    arr.push(".");
-    return;
+    }
   }
 };
 
 const getDisplay = () => {
-  if (arr.length == 0) {
+  if (one.length == 0) {
     return "0";
   }
-  return arr.join("");
+  return one;
 };
 
 const click = (event) => {
